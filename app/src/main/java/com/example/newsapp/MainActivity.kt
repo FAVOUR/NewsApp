@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.helper.State
 import com.example.newsapp.ui.recyclerview.adapter.NewsFeedAdapter
+import com.example.newsapp.ui.viewmodel.NewsFedViewModelFactory
 import com.example.newsapp.ui.viewmodel.NewsFeedVm
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -21,7 +22,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel= ViewModelProviders.of(this)[NewsFeedVm::class.java]
+
+        viewModel= ViewModelProviders.of(this, NewsFedViewModelFactory(this))[NewsFeedVm::class.java]
+
 
     initAdapter(this)
 initState()

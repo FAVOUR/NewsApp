@@ -16,10 +16,11 @@ import com.example.newsapp.pagination.NewsDataSourceFactory
 /**
  * Created by Olije Favour on 4/8/2020.
  */
-class NewsFeedVm(application: Application) :AndroidViewModel(application){
+class NewsFeedVm(_context:Context) :ViewModel(){
 
     var dataSourceFactory :NewsDataSourceFactory
     var newsFeed :LiveData<PagedList<Articles>>
+
 
 
     init {
@@ -32,7 +33,7 @@ class NewsFeedVm(application: Application) :AndroidViewModel(application){
             .build()
 
 
-        dataSourceFactory=NewsDataSourceFactory(application.applicationContext)
+        dataSourceFactory=NewsDataSourceFactory(_context)
 
          newsFeed= LivePagedListBuilder<Long,Articles>(dataSourceFactory,config).build()
 
@@ -42,6 +43,9 @@ class NewsFeedVm(application: Application) :AndroidViewModel(application){
 
 
     }
+
+
+
     fun listIsEmpty(): Boolean {
         return newsFeed.value?.isEmpty() ?: true
     }
