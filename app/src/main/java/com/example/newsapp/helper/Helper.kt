@@ -3,8 +3,6 @@ package com.example.newsapp.helper
 import android.app.Activity
 import android.content.Context
 import android.util.Log
-import com.example.newsapp.pagination.NewDataSource
-import kotlin.reflect.KClass
 
 /**
  * Created by Olije Favour on 4/7/2020.
@@ -14,6 +12,14 @@ import kotlin.reflect.KClass
 val setTag:(context: Context)->Unit={ context ->
     App.TAG = (context as Activity).localClassName
 }
+
+
+//fun setTagf(context: Context):() ->String={
+//    App.TAG = (context as Activity).localClassName
+//
+//    (context as Activity).localClassName
+//}
+
 
 
 

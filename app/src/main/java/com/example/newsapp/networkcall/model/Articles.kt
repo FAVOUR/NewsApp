@@ -9,7 +9,7 @@ data class Articles (
     @SerializedName("title") val title : String,
     @SerializedName("description") val description : String,
     @SerializedName("url") val url : String,
-    @SerializedName("urlToImage") val urlToImage : String,
+    @SerializedName("urlToImage") val image : String,
     @SerializedName("publishedAt") val publishedAt : String,
     @SerializedName("content") val content : String
 )

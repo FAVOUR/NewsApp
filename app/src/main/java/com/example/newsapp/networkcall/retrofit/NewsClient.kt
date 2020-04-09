@@ -12,5 +12,5 @@ interface NewsClient {
     fun fetchNews(@Query("q")  q:String,
                   @Query("apiKey")  apiKey:String,
                   @Query("page")  page:Long,
-                  @Query("pageSize")  pageSize:Int):Call<List<Feed>>
+                  @Query("pageSize")  pageSize:Int):Call<Feed>
 }
