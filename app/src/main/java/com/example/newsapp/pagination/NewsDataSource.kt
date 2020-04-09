@@ -18,7 +18,7 @@ import retrofit2.Response
 
 class NewsDataSource(context: Context):PageKeyedDataSource<Long, Articles>() {
 
-    var loading=MutableLiveData<String>()
+//    var currentPage=MutableLiveData<Long>()
     var finishLoading=MutableLiveData<String>()
 
     init {
@@ -43,10 +43,12 @@ class NewsDataSource(context: Context):PageKeyedDataSource<Long, Articles>() {
      var Q:String="movies"
      var PAGE:Long=1
      var PAGE_SIZE:Int=20
+
     override fun loadInitial(params: LoadInitialParams<Long>, callback: LoadInitialCallback<Long, Articles>) {
         updateState(State.LOADING)
         setLog("About to load ")
         setLog("About to load  ${params.requestedLoadSize}")
+//        currentPage.value=PAGE
         newsApi.fetchNews(apiKey =API_KEY ,q=Q,page =PAGE ,pageSize = PAGE_SIZE).enqueue(object :Callback<Feed>{
             override fun onFailure(call: Call<Feed>, t: Throwable) {
 
@@ -58,6 +60,8 @@ class NewsDataSource(context: Context):PageKeyedDataSource<Long, Articles>() {
                 updateState(State.DONE)
                 if(response.isSuccessful) {
                     setLog("Successful!")
+//                    currentPage.value=PAGE+1L
+
                     callback.onResult(response.body()?.articles!!,PAGE,PAGE+1L)
                 }else{
 
@@ -73,7 +77,10 @@ class NewsDataSource(context: Context):PageKeyedDataSource<Long, Articles>() {
     }
 
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Long, Articles>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //To change body of created functions use File | Settings | File Templates.
+
+        setLog("Trying to load After >>>>>>>>>>> ")
+
     }
 
     override fun loadBefore(params: LoadParams<Long>, callback: LoadCallback<Long, Articles>) {
@@ -81,6 +88,8 @@ class NewsDataSource(context: Context):PageKeyedDataSource<Long, Articles>() {
         setLog("About to load ")
         setLog("About to load params.requestedLoadSize   ${params.requestedLoadSize}")
         setLog("About to load params.key  ${params.key}")
+//        currentPage.value=params.key
+
         newsApi.fetchNews(apiKey =API_KEY ,q=Q,page =params.key ,pageSize = params.requestedLoadSize).enqueue(object :Callback<Feed>{
             override fun onFailure(call: Call <Feed>, t: Throwable) {
 
@@ -93,7 +102,9 @@ class NewsDataSource(context: Context):PageKeyedDataSource<Long, Articles>() {
                 if(response.isSuccessful) {
                     setLog("Successful!")
                     val nextKey =
-                        (if (params.key === response.body()?.articles?.size?.toLong()) null else params.key + 1)?.toLong()
+                    (if (params.key === response.body()?.articles?.size?.toLong()) null else params.key + 1)?.toLong()
+//                    currentPage.value=nextKey
+                    setLog("Successful nextkey $nextKey")
 
                     callback.onResult(response.body()!!.articles,nextKey)
                 }else{
@@ -105,4 +116,11 @@ class NewsDataSource(context: Context):PageKeyedDataSource<Long, Articles>() {
             }
 
         })    }
+
+
+       //SevenStepsto paging
+
+
+
+
 }

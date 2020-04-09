@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 
 
 
-    class NewsFedViewModelFactory(var context: Context): ViewModelProvider.Factory {
+    class NewsFeedViewModelFactory(var context: Context): ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if(modelClass.isAssignableFrom(NewsFeedVm::class.java)){
                     return NewsFeedVm(context) as T

@@ -23,19 +23,21 @@ class NewsFeedAdapter(var context:Context):PagedListAdapter<Articles,RecyclerVie
 
     private var state = State.LOADING
 
+init{
+    setTag(context)
 
-
+}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        setTag(context)
 
-        setLog("onCreateViewHolder  viewType $viewType")
+
+        setLog("onCreateViewHolder  viewType >>>>>>>>>>>>>>>>>>> $viewType")
 //        setLog("onBindViewHolder  getItemViewType(position) ${getItemViewType(position)}")
       return  if(viewType ==DATA_VIEW_TYPE)ArticlesViewHolder.create(parent)else{ListFooterViewHolder.create(parent)}
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-   setLog("onBindViewHolder  Position $position")
-   setLog("onBindViewHolder  getItemViewType(position) ${getItemViewType(position)}")
+   setLog("onBindViewHolder  Position  >>>>>>>>>>>>>>>>>>> $position")
+   setLog("onBindViewHolder  getItemViewType(position)  >>>>>>>>>>>>>>>>>>> ${getItemViewType(position)}")
 
         if (getItemViewType(position) == DATA_VIEW_TYPE)
             (holder as ArticlesViewHolder).bind(getItem(position))
@@ -43,8 +45,8 @@ class NewsFeedAdapter(var context:Context):PagedListAdapter<Articles,RecyclerVie
 
     override fun getItemViewType(position: Int): Int {
 
-        setLog("getItemViewType    Position $position")
-        setLog("getItemViewType    getItemViewType(position) ${getItemViewType(position)}")
+        setLog("getItemViewType >>>>>>>>>>>>>>>>>>>    Position $position")
+//        setLog("getItemViewType >>>>>>>>>>>>>>>>>>>    getItemViewType(position) ${getItemViewType(position)}")
         return if (position < super.getItemCount()) DATA_VIEW_TYPE else FOOTER_VIEW_TYPE
     }
 
